@@ -13,12 +13,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-// rotte create automaticamente da --auth
+// rotte per l'autenticazione create automaticamente da --auth
 Auth::routes();
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+
+// controlla che l'accesso avvenga solo attraverso utenti loggati, passa attraverso middleware
+Route::middleware('auth')
+    ->namespace('Admin')
+    ->name('admin.') // inizio nome della rotta
+    ->prefix('admin') // oppure prefisso admin, l'uri della nostra rotta
+    ->group(function () {
+        Route::get('/', 'HomeController@index')->name('home');
+    });
+
+// ultima possibilità da inserire alla fine, rotta di fallback, intercetta tutte le rotte non specificate precedentemente
+Route::get('{any?}', function(){
+    return view('guest.home');
+})->where('any', '.*');
