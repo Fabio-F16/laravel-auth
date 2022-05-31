@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// rotte per l'autenticazione create automaticamente da 'php artisan ui vue --auth'
-Auth::routes();
+// rotte per l'autenticazione create automaticamente da 'php artisan ui vue --auth', annullo una rotta con
+Auth::routes(['register'=>false, 'reset'=>false]);
 
 
 // Route::get('/home', 'HomeController@index')->name('home');
