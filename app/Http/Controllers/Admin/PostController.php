@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use App\Post;
 
@@ -44,6 +45,9 @@ class PostController extends Controller
         $request->validate([
             'title'=>'required|max:250',
             'content' => 'required',
+        ], [
+            'title.required' => 'Il campo è obbligatorio',
+            'content.required' => 'Il campo è obbligatorio'
         ]);
 
         $postData = $request->all();
@@ -106,11 +110,15 @@ class PostController extends Controller
         $request->validate([
             'title'=>'required|max:250',
             'content' => 'required',
+        ], [
+            'title.required' => 'Il campo è obbligatorio',
+            'content.required' => 'Il campo è obbligatorio'
         ]);
 
         $postData = $request->all();
         $editedPost = Post::findOrFail($id);
         $editedPost->fill($postData);
+
         $slug = Str::slug($editedPost->title);
         $alternativeSlug = $slug;
 
@@ -125,7 +133,8 @@ class PostController extends Controller
 
         $editedPost->slug = $alternativeSlug;
         $editedPost->update();
-        return redirect()->route('admin.posts.show', compact('editedPost'));
+
+        return redirect()->route('admin.posts.index');
     }
 
     /**
