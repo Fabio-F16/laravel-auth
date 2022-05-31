@@ -24,7 +24,8 @@
             <input class="mb-4 btn btn-success" type="submit" value="Crea">
         </form>
 
-        <a href="{{ route('admin.posts.index') }}">Guarda tutti i post</a>
+        <a class="btn btn-primary mb-4" href="{{ route('admin.posts.index') }}"> <i class="fa-solid fa-arrow-left"></i>
+            Torna ai post</a>
         {{-- errori --}}
         @if ($errors->any())
             <div class="alert alert-danger">
