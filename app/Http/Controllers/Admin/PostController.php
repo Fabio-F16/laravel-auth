@@ -133,8 +133,8 @@ class PostController extends Controller
 
         $editedPost->slug = $alternativeSlug;
         $editedPost->update();
+        return redirect()->route('admin.posts.show', $editedPost->id);
 
-        return redirect()->route('admin.posts.index');
     }
 
     /**
