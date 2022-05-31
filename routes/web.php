@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// rotte per l'autenticazione create automaticamente da --auth
+// rotte per l'autenticazione create automaticamente da 'php artisan ui vue --auth'
 Auth::routes();
 
 
@@ -30,7 +30,10 @@ Route::middleware('auth')
     ->name('admin.') // inizio nome della rotta
     ->prefix('admin') // oppure prefisso admin, l'uri della nostra rotta
     ->group(function () {
-        Route::get('/', 'HomeController@index')->name('home');
+        Route::get('/', 'HomeController@index')->name('index');
+        // solo un utente registrato può entrare in post controller
+        Route::resource('/posts', 'PostController');
+
     });
 
 // ultima possibilità da inserire alla fine, rotta di fallback, intercetta tutte le rotte non specificate precedentemente
